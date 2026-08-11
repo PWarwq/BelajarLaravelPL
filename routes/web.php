@@ -16,37 +16,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// management data siswa
-Route::name('students.')->prefix('students')->group(function(){
-    Route::get('/', [StudentController::class, 'index'])->name('index');
-    Route::get('/{id}',[StudentController::class, 'show'])->name('show');
-    Route::get('/create', [StudentController::class, 'create'])->name('create');
-    Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit');
-    Route::post('', [StudentController::class, 'store'])->name('store');
-    Route::put('/{id}', [StudentController::class, 'update'])->name('update');
-    Route::delete('/{id}', [StudentController::class, 'destroy'])->name('destroy');
-});
+//Student Routes
+Route::name('students.')->prefix('students')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::get('/create', [StudentController::class, 'create'])->name('create');
+        Route::get('/{id}/edit', [StudentController::class, 'edit'])->name('edit');
+        Route::get('/{id}', [StudentController::class, 'show'])->name('show');
+        Route::post('/', [StudentController::class, 'store'])->name('store');
+        Route::put('/{id}', [StudentController::class, 'update'])->name('update');
+        Route::delete('/{id}', [StudentController::class, 'destroy'])->name('destroy');
+    });
 
-// management data siswa
-Route::name('Teacher.')->prefix('Teacher')->group(function(){
-    Route::get('/', [TeacherController::class, 'index'])->name('index');
-    Route::get('/{id}',[TeacherController::class, 'show'])->name('show');
-    Route::get('/create', [TeacherController::class, 'create'])->name('create');
-    Route::get('/{id}/edit', [TeacherController::class, 'edit'])->name('edit');
-    Route::post('', [TeacherController::class, 'store'])->name('store');
-    Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
-    Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
-});
+//Teacher Route
+Route::name('teachers.')->prefix('teachers')->group(function () {
+        Route::get('/', [TeacherController::class, 'index'])->name('index');
+        Route::get('/create', [TeacherController::class, 'create'])->name('create');
+        Route::get('/{id}/edit', [TeacherController::class, 'edit'])->name('edit');
+        Route::get('/{id}', [TeacherController::class, 'show'])->name('show');
+        Route::post('/', [TeacherController::class, 'store'])->name('store');
+        Route::put('/{id}', [TeacherController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('destroy');
+    });
 
-// // manajemen data guru (invokable)
-Route::name('SchoolClass.')->prefix('SchoolClass')->group(function(){
-    Route::get('/', IndexController::class)->name('index');
-    Route::get('/{id}',ShowController::class)->name('show');
-    Route::get('/create', CreateController::class)->name('create');
-    Route::get('/{id}/edit', EditController::class)->name('edit');
-    Route::post('', StoreController::class)->name('store');
-    Route::put('/{id}', UpdateController::class)->name('update');
-    Route::delete('/{id}', DestroyController::class)->name('destroy');
-});
+//School Class Route
+Route::name('classes.')->prefix('classes')->group(function () {
+        Route::get('/', IndexController::class)->name('index');
+        Route::get('/create', CreateController::class)->name('create');
+        Route::get('/{id}/edit', EditController::class)->name('edit');
+        Route::get('/{id}', ShowController::class)->name('show');
+        Route::post('/', StoreController::class)->name('store');
+        Route::put('/{id}', UpdateController::class)->name('update');
+        Route::delete('/{id}', DestroyController::class)->name('destroy');
+    });
 
-Route::resource('Major', MajorController::class);
+//major
+Route::name('majors.')->prefix('majors')->group(function () {
+        Route::get('/', [MajorController::class, 'index'])->name('index');
+        Route::get('/create', [MajorController::class, 'create'])->name('create');
+        Route::get('/{id}/edit', [MajorController::class, 'edit'])->name('edit');
+        Route::get('/{id}', [MajorController::class, 'show'])->name('show');
+        Route::post('/', [MajorController::class, 'store'])->name('store');
+        Route::put('/{id}', [MajorController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MajorController::class, 'destroy'])->name('destroy');
+    });

@@ -31,14 +31,17 @@ class StudentController extends Controller
     }
     
     public function show(string $id){
-        $title = "Sistem Sekolah - Detail";
+        $title = "Sistem Sekolah - Detail Siswa";
         return view('students.show', [
             'title' => $title
         ]);
     }
 
     public function create(){
-        return view('students.create');
+        $title = "Sistem Sekolah - Tambah Siswa";
+        return view('students.create', [
+            'title' => $title
+        ]);
     }
 
     public function edit(string $id){

@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\SchoolClass;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
-class ShowController extends Controller
+class ShowController
 {
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $reques, string $id)
+    public function __invoke(string $id)
     {
-        return "menampilkan detail kelas dengan id: {$id}";
+        $title = 'Sistem Sekolah - Detail Kelas';
+
+        return view('classes.show', [
+            'title' => $title,
+            'id' => $id,
+        ]);
     }
 }
