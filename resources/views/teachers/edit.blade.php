@@ -65,7 +65,7 @@
                 name="gender"
                 class="mt-2 w-full border border-[#E5E3DB] px-4 py-3 text-sm"
             >
-                <option value="Laki-Laki" selected>Laki-Laki</option>
+                <option value="Laki-Laki" @selected(old('gender', $student->gender))>Laki-Laki</option>
                 <option value="Perempuan">Perempuan</option>
             </select>
         </div>
