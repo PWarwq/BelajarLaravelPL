@@ -16,7 +16,7 @@
 
       </a> 
 
-      <nav class="hidden gap-8 text-sm md:flex"> 
+      <nav class="hidden gap-8 text-sm md:flex items-center"> 
 
         <a href="{{ route('students.index') }}" class="text-white/55 hover:text-white">
             Siswa
@@ -34,7 +34,12 @@
             Jurusan
         </a>
 
+        <form action="{{ route('logout') }}" method="POST">
+          @csrf
+          <button type="submit" class="text-white/55 hover:text-white cursor-pointer">Logout</button>
+        </form>
       </nav> 
+
 
     </div> 
 
