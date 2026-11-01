@@ -47,23 +47,28 @@
       <div> 
         <label for="major" 
           class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Jurusan</label> 
-        <select id="major" name="major" 
+        <select id="major" name="major_id" 
           class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none"> 
           <option value="">Pilih Jurusan</option> 
-          <option value="AKL" @selected(old('major', $student->major) === 'AKL')>AKL</option> 
-          <option value="TKJ" @selected(old('major', $student->major) === 'TKJ')>TKJ</option> 
-          <option value="BiD" @selected(old('major', $student->major) === 'BiD')>BiD</option> 
+          @foreach ($majors as $major)
+            <option value="{{ $major->id }}" @selected(old('major_id', $student->major_id) == $major->id)>{{ $major->name }}</option> 
+          @endforeach
         </select> 
-          @error('major')
+          @error('major_id')
             <span class="text-red-500">{{ $message }}</span>            
           @enderror
       </div> 
       <div> 
         <label for="class" 
           class="mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em] text-[#16213A]">Kelas</label> 
-        <input type="text" id="class" name="class" value="{{old('class', $student->class)}}" 
+        <select id="class" name="class_id" 
           class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none"> 
-          @error('nis')
+          <option value="">Pilih Kelas</option> 
+          @foreach ($schoolClasses as $schoolClass)
+            <option value="{{ $schoolClass->id }}" @selected(old('class_id', $student->class_id) == $schoolClass->id)>{{ $schoolClass->name }}</option> 
+          @endforeach
+        </select> 
+          @error('class_id')
             <span class="text-red-500">{{ $message }}</span>            
           @enderror
       </div> 

@@ -116,27 +116,21 @@
 
         <select
             id="major"
-            name="major"
+            name="major_id"
             class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none"
         >
             <option value="">
                 Pilih jurusan
             </option>
 
-            <option value="AKL" {{ old('major') == 'AKL' ? 'selected' : '' }}>
-                AKL
-            </option>
-
-            <option value="TKJ" {{ old('major') == 'TKJ' ? 'selected' : '' }}>
-                TKJ
-            </option>
-
-            <option value="BiD" {{ old('major') == 'BiD' ? 'selected' : '' }}>
-                BiD
-            </option>
+            @foreach ($majors as $major)
+                <option value="{{ $major->id }}" @selected(old('major_id') == $major->id)>
+                    {{ $major->name }}
+                </option>
+            @endforeach
         </select>
 
-        @error('major')
+        @error('major_id')
             <span class="mt-1 block text-sm text-red-500">
                 {{ $message }}
             </span>
@@ -152,16 +146,23 @@
             Kelas
         </label>
 
-        <input
-            type="text"
+        <select
             id="class"
-            name="class"
-            value="{{ old('class') }}"
-            placeholder="Contoh: X AKL 1"
-            class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus:border-[#A16207] focus:bg-white focus:outline-none"
+            name="class_id"
+            class="w-full border border-[#D9D6CD] bg-[#FCFBF8] px-3.5 py-2.5 text-sm focus:border-[#A16207] focus:bg-white focus:outline-none"
         >
+            <option value="">
+                Pilih kelas
+            </option>
 
-        @error('class')
+            @foreach ($schoolClasses as $schoolClass)
+                <option value="{{ $schoolClass->id }}" @selected(old('class_id') == $schoolClass->id)>
+                    {{ $schoolClass->name }}
+                </option>
+            @endforeach
+        </select>
+
+        @error('class_id')
             <span class="mt-1 block text-sm text-red-500">
                 {{ $message }}
             </span>

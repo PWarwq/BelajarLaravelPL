@@ -4,7 +4,6 @@ namespace App\Http\Requests\Student;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Override;
 
 class StoreRequest extends FormRequest
 {
@@ -24,11 +23,11 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis'=> ['required', 'string', 'size:4', 'unique:students,nis,'],
-            'name'=> ['required', 'string'],
-            'gender'=> ['required', 'string', 'in:Laki-Laki,Perempuan'],
-            'major'=> ['required','string', 'in:AKL,TKJ,BiD'],
-            'class'=>['required', 'string']
+            'nis' => ['required', 'string', 'size:4', 'unique:students,nis'],
+            'name' => ['required', 'string'],
+            'gender' => ['required', 'string', 'in:Laki-Laki,Perempuan'],
+            'major_id' => ['required', 'integer', 'exists:majors,id'],
+            'class_id' => ['required', 'integer', 'exists:classes,id'],
         ];
     }
 
@@ -38,8 +37,8 @@ class StoreRequest extends FormRequest
             'nis' => 'Nomor Induk Siswa',
             'name' => 'Nama Lengkap',
             'gender' => 'Jenis Kelamin',
-            'class' => 'Kelas',
-            'major' => 'Jurusan',
+            'class_id' => 'Kelas',
+            'major_id' => 'Jurusan',
         ];
     }
 
@@ -51,4 +50,3 @@ class StoreRequest extends FormRequest
         ];
     }
 }
-

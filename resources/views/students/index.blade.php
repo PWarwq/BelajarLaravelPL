@@ -20,8 +20,8 @@
             <label for="class" class="mb-1 block text-[11px] uppercase tracking-[0.15em] text-[#16213A]">Kelas</label>
           <select name="class" id="class" class="border border-[#E5E3DB] px-3 py-2 text-sm focus:border-[#16213A] focus:outline-none">
             <option value="">Semua Kelas</option>
-            @foreach ($schoolClasses as $class )
-                <option @selected(request('class') === $class) value="{{ $class }}">{{ $class }}</option>
+            @foreach ($schoolClasses as $schoolClass)
+                <option @selected((string) request('class') === (string) $schoolClass->id) value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
             @endforeach
           </select>
 
@@ -31,7 +31,7 @@
           <select name="major" id="major" class="border border-[#E5E3DB] px-3 py-2 text-sm focus:border-[#16213A] focus:outline-none">
             <option value="">Semua Jurusan</option>
             @foreach ($majors as $major)
-                <option @selected(request('major') === $major) value="{{ $major }}">{{ $major }}</option>
+                <option @selected((string) request('major') === (string) $major->id) value="{{ $major->id }}">{{ $major->name }}</option>
             @endforeach
           </select>
 
@@ -72,10 +72,10 @@
               {{ $student->name }}
             </td>
             <td class="px-5 py-4">
-              {{ $student->class }}
+              {{ $student->schoolClass?->name }}
             </td>
             <td class="px-5 py-4">
-              {{ $student->major }}
+              {{ $student->major?->name }}
             </td>
             <td class="px-5 py-4">
               <div class="flex justify-end gap-4 text-xs font-medium">

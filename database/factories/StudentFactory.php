@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Major;
+use App\Models\SchoolClass;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use League\Uri\FeatureDetection;
 
 /**
  * @extends Factory<Student>
@@ -12,6 +14,7 @@ use League\Uri\FeatureDetection;
 class StudentFactory extends Factory
 {
     protected $model = Student::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,11 +23,12 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'nis'=> fake()->unique()->numerify('####'),
+            'nis' => fake()->unique()->numerify('####'),
             'name' => fake()->name(),
-            'gender'=>fake()->randomElement(['Laki-Laki', 'Perempuan']),
-            'class'=> fake()->randomElement(['10 AKL', '11 AKL','12 AKL', '10 BiD', '11 BiD', '12 BiD', '10 TKJ', '11 TKJ', '12 TKJ']),
-            'major'=>fake()->randomElement(['AKL','BiD','TKJ'])
+            'gender' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
+            'user_id' => User::factory(),
+            'major_id' => Major::inRandomOrder()->first()->id,
+            'class_id' => SchoolClass::inRandomOrder()->first()->id,
         ];
     }
 }

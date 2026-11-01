@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Student\StoreRequest;
 use App\Http\Requests\Student\UpdateRequest;
+use App\Models\Major;
+use App\Models\SchoolClass;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -17,26 +19,23 @@ class StudentController extends Controller
         $class = $request->query('class');
         $major = $request->query('major');
 
-        $students = Student::select(['id', 'nis', 'name', 'class', 'major'])
+        $students = Student::with(['major', 'schoolClass'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
                         ->orWhere('nis', 'like', "%{$search}%");
                 });
             })
-            ->when($class, fn ($query, $class) => $query->where('class', '=', $class))
-            ->when($major, fn ($query, $major) => $query->where('major', '=', $major))
+            ->when($class, fn ($query, $class) => $query->where('class_id', $class))
+            ->when($major, fn ($query, $major) => $query->where('major_id', $major))
             ->paginate(5)
             ->withQueryString();
-
-        $schoolClasses = ['10 BiD', '11 BiD', '12 BiD', '10 AKL', '11 AKL', '12 AKL', '10 TKJ', '11 TKJ', '12 TKJ'];
-        $majors = ['AKL', 'BiD', 'TKJ'];
 
         return view('students.index', [
             'title' => $title,
             'students' => $students,
-            'schoolClasses' => $schoolClasses,
-            'majors' => $majors,
+            'schoolClasses' => SchoolClass::orderBy('name')->get(),
+            'majors' => Major::orderBy('name')->get(),
         ]);
     }
 
@@ -56,17 +55,20 @@ class StudentController extends Controller
 
         return view('students.create', [
             'title' => $title,
+            'schoolClasses' => SchoolClass::orderBy('name')->get(),
+            'majors' => Major::orderBy('name')->get(),
         ]);
     }
 
     public function edit(Student $student)
     {
-
         $title = 'Sistem Sekolah - Edit';
 
         return view('students.edit', [
             'title' => $title,
             'student' => $student,
+            'schoolClasses' => SchoolClass::orderBy('name')->get(),
+            'majors' => Major::orderBy('name')->get(),
         ]);
     }
 
@@ -98,6 +100,5 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect()->route('students.index');
-
     }
 }
